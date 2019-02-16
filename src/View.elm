@@ -3,7 +3,7 @@ module View exposing (view)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
-import Land exposing (Land, landToString)
+import Land exposing (Land, landToImgUrl, landToString)
 import LandModel exposing (Model)
 import LandMsg exposing (Msg(..))
 import Lands exposing (landsToList)
@@ -20,9 +20,13 @@ viewLandToDiv land =
     let
         disableDecrement =
             land.count == 0
+
+        landUrl =
+            landToImgUrl land
     in
     div []
-        [ h1 [] [ text (landToString land) ]
+        [ img [ src landUrl ] []
+        , h1 [] [ text (landToString land) ]
         , button [ onClick (Increment land) ] [ text "Increment" ]
         , button [ onClick (Decrement land), disabled disableDecrement ] [ text "Decrement" ]
         ]
