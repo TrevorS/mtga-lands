@@ -1,4 +1,4 @@
-module Lands exposing (Lands, createLandsDict, landsToList, updateLands)
+module Lands exposing (Lands, createLandsDict, landsToList, selectedLands, updateLands)
 
 import Dict exposing (Dict)
 import Land exposing (Land)
@@ -107,6 +107,11 @@ updateLands msg lands =
 landsToList : Lands -> List Land
 landsToList lands =
     Dict.values lands
+
+
+selectedLands : Lands -> List Land
+selectedLands lands =
+    List.filter (\l -> l.count > 0) (landsToList lands)
 
 
 incrementCount : Maybe Land -> Maybe Land
