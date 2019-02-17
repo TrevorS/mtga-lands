@@ -7,6 +7,7 @@ import Land exposing (Land, landToImgUrl, landToString)
 import LandModel exposing (Model)
 import LandMsg exposing (Msg(..))
 import Lands exposing (Lands, landsToList, selectedLands)
+import List.Extra exposing (greedyGroupsOf)
 
 
 view : Model -> Html Msg
@@ -22,9 +23,15 @@ viewLands lands =
     let
         landsAsHtml =
             List.map (\l -> viewLand l) (landsToList lands)
+
+        landRows =
+            greedyGroupsOf 5 landsAsHtml
     in
-    div []
-        landsAsHtml
+    div [ class "columns" ]
+        (List.map
+            (\ls -> div [ class "column" ] ls)
+            landRows
+        )
 
 
 viewLand : Land -> Html Msg
