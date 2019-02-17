@@ -1,0 +1,23 @@
+.header {
+  padding-bottom: 10px;
+}
+
+.land-img {
+  border-radius: 5px;
+}
+
+.mana {
+  height: 45px;
+  width: 45px;
+  padding-left: 10px;
+}
+
+button.is-small.counter-button {
+  border-radius: 25px;
+}
+
+.counter {
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 5px;
+}

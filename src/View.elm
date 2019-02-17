@@ -13,9 +13,45 @@ import List.Extra exposing (greedyGroupsOf)
 view : Model -> Html Msg
 view model =
     div [ class "container" ]
-        [ viewLands model.lands
+        [ viewHeader
+        , viewLands model.lands
         , viewDeckString model.lands
         ]
+
+
+viewHeader : Html Msg
+viewHeader =
+    nav [ class "navbar header" ]
+        [ div [ class "navbar-brand" ]
+            [ span [ class "navbar-item" ]
+                [ h1
+                    [ class "title is-1" ]
+                    [ text "MTGA Lands" ]
+                ]
+            , viewHeaderMana
+            ]
+        ]
+
+
+viewHeaderMana : Html Msg
+viewHeaderMana =
+    let
+        colors =
+            [ "black"
+            , "blue"
+            , "green"
+            , "red"
+            , "white"
+            ]
+
+        manaClass =
+            "mana"
+    in
+    div [ class "navbar-item" ]
+        (List.map
+            (\c -> img [ src ("/images/mana/" ++ c ++ "_mana.svg"), class manaClass ] [])
+            colors
+        )
 
 
 viewLands : Lands -> Html Msg
@@ -26,10 +62,13 @@ viewLands lands =
 
         landRows =
             greedyGroupsOf 5 landsAsHtml
+
+        landRowClass =
+            "columns"
     in
     div []
         (List.map
-            (\landRow -> div [ class "columns" ] landRow)
+            (\landRow -> div [ class landRowClass ] landRow)
             landRows
         )
 
@@ -37,20 +76,62 @@ viewLands lands =
 viewLand : Land -> Html Msg
 viewLand land =
     let
-        disableDecrement =
-            land.count == 0
-
         landUrl =
             landToImgUrl land
+
+        columnClass =
+            "column"
+
+        landImgClass =
+            "land-img"
     in
-    div [ class "column" ]
-        [ img [ src landUrl ] []
-        , h1 [ class "title is-4" ] [ text (String.fromInt land.count) ]
-        , div [ class "buttons" ]
-            [ button [ class "button is-info is-medium", onClick (Increment land) ] [ text "+" ]
-            , button [ class "button is-info is-medium", onClick (Decrement land), disabled disableDecrement ] [ text "-" ]
-            ]
+    div [ class columnClass ]
+        [ img [ src landUrl, class landImgClass ] []
+        , viewLandButtons land
         ]
+
+
+viewLandButtons : Land -> Html Msg
+viewLandButtons land =
+    let
+        buttonsClass =
+            "buttons"
+
+        counterClass =
+            "counter is-size-3 has-text-weight-bold"
+    in
+    div [ class buttonsClass ]
+        [ viewLandButton (Increment land)
+        , p [ class counterClass ] [ text (String.fromInt land.count) ]
+        , viewLandButton (Decrement land)
+        ]
+
+
+viewLandButton : Msg -> Html Msg
+viewLandButton msg =
+    let
+        divClass =
+            "control"
+
+        buttonClass =
+            "button button is-info is-small counter-button"
+
+        plusClass =
+            "fas fa-plus-circle"
+
+        minusClass =
+            "fas fa-minus-circle"
+
+        ( iconClass, buttonDisabled ) =
+            case msg of
+                Increment land ->
+                    ( plusClass, False )
+
+                Decrement land ->
+                    ( minusClass, land.count == 0 )
+    in
+    div [ class divClass ]
+        [ button [ class buttonClass, onClick msg, disabled buttonDisabled ] [ i [ class iconClass ] [] ] ]
 
 
 viewDeckString : Lands -> Html Msg
@@ -58,6 +139,15 @@ viewDeckString lands =
     let
         deckStringAsText =
             List.map (\l -> text (landToString l ++ "\n")) (selectedLands lands)
+
+        columnsClass =
+            "columns"
+
+        textareaClass =
+            "textarea is-family-code"
+
+        numberColumns =
+            50
     in
-    div [ class "columns" ]
-        [ textarea [ class "textarea", cols 50 ] deckStringAsText ]
+    div [ class columnsClass ]
+        [ textarea [ class textareaClass, cols numberColumns ] deckStringAsText ]
