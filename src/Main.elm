@@ -5,6 +5,7 @@ import Land exposing (Land, landToString)
 import Lands exposing (Lands, createLandsDict, landsToList, updateLands)
 import Model exposing (Model)
 import Msg exposing (Msg(..))
+import Update exposing (update)
 import View exposing (view)
 
 
@@ -27,12 +28,3 @@ init _ =
             Cmd.none
     in
     ( model, cmd )
-
-
-update : Msg -> Model -> ( Model, Cmd Msg )
-update msg model =
-    let
-        lands =
-            updateLands msg model.lands
-    in
-    ( { model | lands = lands }, Cmd.none )
