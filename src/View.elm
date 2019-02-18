@@ -3,11 +3,12 @@ module View exposing (view)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
-import Land exposing (Land, landToImgUrl, landToString)
-import LandModel exposing (Model)
+import Land exposing (Land, landToHrefId, landToImgUrl, landToString)
 import LandMsg exposing (Msg(..))
-import Lands exposing (Lands, landsToList, selectedLands)
+import Lands exposing (Lands, firstLandOfType, landsToList, selectedLands)
 import List.Extra exposing (greedyGroupsOf)
+import Modal exposing (createModal)
+import Model exposing (Model)
 
 
 view : Model -> Html Msg
@@ -15,7 +16,7 @@ view model =
     div [ class "container" ]
         [ viewHeader
         , viewLands model.lands
-        , viewDeckString model.lands
+        , viewDeckString model.modalOpen model.lands
         ]
 
 
@@ -37,40 +38,58 @@ viewHeaderMana : Html Msg
 viewHeaderMana =
     let
         colors =
-            [ "black"
-            , "blue"
-            , "green"
-            , "red"
-            , "white"
+            [ ( "black", "Swamp" )
+            , ( "blue", "Island" )
+            , ( "green", "Forest" )
+            , ( "red", "Mountain" )
+            , ( "white", "Plains" )
             ]
+    in
+    div [ class "navbar-item" ]
+        (List.map (\( c, lt ) -> viewManaLink c lt) colors)
+
+
+viewManaLink : String -> String -> Html Msg
+viewManaLink mana landType =
+    let
+        firstLand =
+            firstLandOfType landType
+
+        firstLandId =
+            landToHrefId firstLand
+
+        manaUrl =
+            "#" ++ firstLandId
+
+        imgUrl =
+            "/images/mana/" ++ mana ++ "_mana.svg"
 
         manaClass =
             "mana"
     in
-    div [ class "navbar-item" ]
-        (List.map
-            (\c -> img [ src ("/images/mana/" ++ c ++ "_mana.svg"), class manaClass ] [])
-            colors
-        )
+    a [ href manaUrl ] [ img [ src imgUrl, class manaClass ] [] ]
 
 
 viewLands : Lands -> Html Msg
 viewLands lands =
     let
-        landsAsHtml =
-            List.map (\l -> viewLand l) (landsToList lands)
-
         landRows =
-            greedyGroupsOf 5 landsAsHtml
+            greedyGroupsOf 5 (landsToList lands)
+    in
+    div []
+        (List.map (\landRow -> viewLandRow landRow) landRows)
+
+
+viewLandRow : List Land -> Html Msg
+viewLandRow landRow =
+    let
+        landsAsHtml =
+            List.map (\l -> viewLand l) landRow
 
         landRowClass =
             "columns"
     in
-    div []
-        (List.map
-            (\landRow -> div [ class landRowClass ] landRow)
-            landRows
-        )
+    div [ class landRowClass ] landsAsHtml
 
 
 viewLand : Land -> Html Msg
@@ -79,6 +98,9 @@ viewLand land =
         landUrl =
             landToImgUrl land
 
+        landHrefId =
+            landToHrefId land
+
         columnClass =
             "column"
 
@@ -86,7 +108,7 @@ viewLand land =
             "land-img"
     in
     div [ class columnClass ]
-        [ img [ src landUrl, class landImgClass ] []
+        [ img [ id landHrefId, src landUrl, class landImgClass ] []
         , viewLandButtons land
         ]
 
@@ -101,9 +123,9 @@ viewLandButtons land =
             "counter is-size-3 has-text-weight-bold"
     in
     div [ class buttonsClass ]
-        [ viewLandButton (Increment land)
+        [ viewLandButton (Decrement land)
         , p [ class counterClass ] [ text (String.fromInt land.count) ]
-        , viewLandButton (Decrement land)
+        , viewLandButton (Increment land)
         ]
 
 
@@ -134,20 +156,28 @@ viewLandButton msg =
         [ button [ class buttonClass, onClick msg, disabled buttonDisabled ] [ i [ class iconClass ] [] ] ]
 
 
-viewDeckString : Lands -> Html Msg
-viewDeckString lands =
+viewDeckString : Bool -> Lands -> Html Msg
+viewDeckString active lands =
     let
         deckStringAsText =
             List.map (\l -> text (landToString l ++ "\n")) (selectedLands lands)
 
-        columnsClass =
-            "columns"
+        fieldClass =
+            "field"
+
+        controlClass =
+            "control"
 
         textareaClass =
-            "textarea is-family-code"
+            "textarea is-info is-family-code"
 
-        numberColumns =
-            50
+        modalTitle =
+            "MTGA DeckString"
+
+        deckStringTextArea =
+            div [ class fieldClass ]
+                [ div [ class controlClass ]
+                    [ textarea [ class textareaClass ] deckStringAsText ]
+                ]
     in
-    div [ class columnsClass ]
-        [ textarea [ class textareaClass, cols numberColumns ] deckStringAsText ]
+    createModal modalTitle active (div [] [ deckStringTextArea ])

@@ -2,9 +2,9 @@ module Main exposing (init, main)
 
 import Browser
 import Land exposing (Land, landToString)
-import LandModel exposing (Model)
 import LandMsg exposing (Msg(..))
 import Lands exposing (Lands, createLandsDict, landsToList, updateLands)
+import Model exposing (Model)
 import View exposing (view)
 
 
@@ -19,7 +19,14 @@ main =
 
 init : () -> ( Model, Cmd Msg )
 init _ =
-    ( Model createLandsDict, Cmd.none )
+    let
+        model =
+            Model createLandsDict False
+
+        cmd =
+            Cmd.none
+    in
+    ( model, cmd )
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )

@@ -1,4 +1,4 @@
-module Land exposing (Land, landToImgUrl, landToString)
+module Land exposing (Land, landToHrefId, landToImgUrl, landToString)
 
 
 type alias Land =
@@ -8,6 +8,11 @@ type alias Land =
     , count : Int
     , key : Int
     }
+
+
+landToHrefId : Land -> String
+landToHrefId land =
+    land.landType ++ "-" ++ land.set ++ "-" ++ String.fromInt land.id
 
 
 landToString : Land -> String
