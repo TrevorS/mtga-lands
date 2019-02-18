@@ -1,4 +1,4 @@
-module Lands exposing (Lands, createLandsDict, firstLandOfType, landsToList, selectedLands, updateLands)
+module Lands exposing (Lands, createLandsDict, firstLandOfType, landsToList, selectedLands)
 
 import Dict exposing (Dict)
 import Land exposing (Land)
@@ -105,16 +105,6 @@ createLandsDict =
         |> Dict.fromList
 
 
-updateLands : Msg -> Lands -> Lands
-updateLands msg lands =
-    case msg of
-        Increment land ->
-            Dict.update land.key incrementCount lands
-
-        Decrement land ->
-            Dict.update land.key decrementCount lands
-
-
 landsToList : Lands -> List Land
 landsToList lands =
     Dict.values lands
@@ -123,23 +113,3 @@ landsToList lands =
 selectedLands : Lands -> List Land
 selectedLands lands =
     List.filter (\l -> l.count > 0) (landsToList lands)
-
-
-incrementCount : Maybe Land -> Maybe Land
-incrementCount land =
-    case land of
-        Just foundLand ->
-            Just { foundLand | count = foundLand.count + 1 }
-
-        Nothing ->
-            Nothing
-
-
-decrementCount : Maybe Land -> Maybe Land
-decrementCount land =
-    case land of
-        Just foundLand ->
-            Just { foundLand | count = foundLand.count - 1 }
-
-        Nothing ->
-            Nothing

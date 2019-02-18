@@ -6,3 +6,5 @@ import Land exposing (Land)
 type Msg
     = Increment Land
     | Decrement Land
+    | ShowModal
+    | HideModal

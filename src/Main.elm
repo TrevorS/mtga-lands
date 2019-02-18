@@ -1,8 +1,7 @@
 module Main exposing (init, main)
 
 import Browser
-import Land exposing (Land, landToString)
-import Lands exposing (Lands, createLandsDict, landsToList, updateLands)
+import Lands exposing (createLandsDict)
 import Model exposing (Model)
 import Msg exposing (Msg(..))
 import Update exposing (update)

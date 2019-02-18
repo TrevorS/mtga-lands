@@ -71,8 +71,12 @@ viewHeaderExport =
 
         buttonText =
             "Export"
+
+        buttonMsg =
+            ShowModal
     in
-    div [ class navbarItemClass ] [ button [ class buttonClass ] [ text buttonText ] ]
+    div [ class navbarItemClass ]
+        [ button [ class buttonClass, onClick buttonMsg ] [ text buttonText ] ]
 
 
 viewManaLink : String -> String -> Html Msg
@@ -177,6 +181,9 @@ viewLandButton msg =
 
                 Decrement land ->
                     ( minusClass, land.count == 0 )
+
+                _ ->
+                    Debug.todo "This should not happen."
     in
     div [ class divClass ]
         [ button [ class buttonClass, onClick msg, disabled buttonDisabled ] [ i [ class iconClass ] [] ] ]

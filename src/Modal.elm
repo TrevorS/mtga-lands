@@ -2,6 +2,7 @@ module Modal exposing (createModal)
 
 import Html exposing (..)
 import Html.Attributes exposing (..)
+import Html.Events exposing (..)
 import Msg exposing (Msg(..))
 
 
@@ -31,6 +32,9 @@ createModal title active html =
         buttonCloseClass =
             "delete"
 
+        buttonCloseMsg =
+            HideModal
+
         modalCardBody =
             "modal-card-body"
 
@@ -46,7 +50,7 @@ createModal title active html =
         modalHeader =
             header [ class modalCardHeadClass ]
                 [ p [ class modalCardTitle ] [ text title ]
-                , button [ class buttonCloseClass ] []
+                , button [ class buttonCloseClass, onClick buttonCloseMsg ] []
                 ]
 
         modalBody =
