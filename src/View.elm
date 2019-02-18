@@ -24,7 +24,10 @@ viewHeader : Html Msg
 viewHeader =
     nav [ class "navbar header" ]
         [ div [ class "navbar-brand" ] [ viewHeaderTitle, viewHeaderMana ]
-        , div [ class "navbar-menu" ] [ div [ class "navbar-end" ] [ viewHeaderExport ] ]
+        , div [ class "navbar-menu" ]
+            [ div [ class "navbar-end" ]
+                [ viewHeaderClear, viewHeaderExport ]
+            ]
         ]
 
 
@@ -58,6 +61,25 @@ viewHeaderMana =
             "navbar-item manas"
     in
     div [ class navbarItemClass ] (List.map (\( c, lt ) -> viewManaLink c lt) colors)
+
+
+viewHeaderClear : Html Msg
+viewHeaderClear =
+    let
+        navbarItemClass =
+            "navbar-item clear-button"
+
+        buttonClass =
+            "button is-warning"
+
+        buttonText =
+            "Clear"
+
+        buttonMsg =
+            Clear
+    in
+    div [ class navbarItemClass ]
+        [ button [ class buttonClass, onClick buttonMsg ] [ text buttonText ] ]
 
 
 viewHeaderExport : Html Msg

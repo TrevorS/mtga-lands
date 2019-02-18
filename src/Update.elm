@@ -2,6 +2,7 @@ module Update exposing (update)
 
 import Dict exposing (Dict)
 import Land exposing (Land)
+import Lands exposing (createLandsDict)
 import Model exposing (Model)
 import Msg exposing (Msg(..))
 
@@ -36,6 +37,13 @@ update msg model =
                     False
             in
             ( { model | modalOpen = modalOpen }, Cmd.none )
+
+        Clear ->
+            let
+                lands =
+                    createLandsDict
+            in
+            ( { model | lands = lands }, Cmd.none )
 
 
 incrementCount : Maybe Land -> Maybe Land

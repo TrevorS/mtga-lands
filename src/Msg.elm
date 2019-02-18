@@ -8,3 +8,4 @@ type Msg
     | Decrement Land
     | ShowModal
     | HideModal
+    | Clear
