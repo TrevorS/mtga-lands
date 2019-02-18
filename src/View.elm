@@ -23,15 +23,24 @@ view model =
 viewHeader : Html Msg
 viewHeader =
     nav [ class "navbar header" ]
-        [ div [ class "navbar-brand" ]
-            [ span [ class "navbar-item" ]
-                [ h1
-                    [ class "title is-1" ]
-                    [ text "MTGA Lands" ]
-                ]
-            , viewHeaderMana
-            ]
+        [ div [ class "navbar-brand" ] [ viewHeaderTitle, viewHeaderMana ]
+        , div [ class "navbar-menu" ] [ div [ class "navbar-end" ] [ viewHeaderExport ] ]
         ]
+
+
+viewHeaderTitle : Html Msg
+viewHeaderTitle =
+    let
+        navbarItemClass =
+            "navbar-item"
+
+        titleClass =
+            "title is-1"
+
+        titleText =
+            "MTGA Lands"
+    in
+    div [ class navbarItemClass ] [ h1 [ class titleClass ] [ text titleText ] ]
 
 
 viewHeaderMana : Html Msg
@@ -44,9 +53,26 @@ viewHeaderMana =
             , ( "red", "Mountain" )
             , ( "white", "Plains" )
             ]
+
+        navbarItemClass =
+            "navbar-item manas"
     in
-    div [ class "navbar-item manas" ]
-        (List.map (\( c, lt ) -> viewManaLink c lt) colors)
+    div [ class navbarItemClass ] (List.map (\( c, lt ) -> viewManaLink c lt) colors)
+
+
+viewHeaderExport : Html Msg
+viewHeaderExport =
+    let
+        navbarItemClass =
+            "navbar-item export-button"
+
+        buttonClass =
+            "button is-primary"
+
+        buttonText =
+            "Export"
+    in
+    div [ class navbarItemClass ] [ button [ class buttonClass ] [ text buttonText ] ]
 
 
 viewManaLink : String -> String -> Html Msg

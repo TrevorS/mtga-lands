@@ -16,6 +16,10 @@
   padding-left: 10px;
 }
 
+.export-button {
+  padding-top: 20px;
+}
+
 .buttons {
   justify-content: center;
 }
