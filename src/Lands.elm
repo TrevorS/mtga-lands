@@ -2,8 +2,8 @@ module Lands exposing (Lands, createLandsDict, firstLandOfType, landsToList, sel
 
 import Dict exposing (Dict)
 import Land exposing (Land)
-import LandMsg exposing (Msg(..))
 import List.Extra exposing (find)
+import Msg exposing (Msg(..))
 
 
 type alias Lands =

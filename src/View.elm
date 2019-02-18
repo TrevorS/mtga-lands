@@ -4,11 +4,11 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Land exposing (Land, landToHrefId, landToImgUrl, landToString)
-import LandMsg exposing (Msg(..))
 import Lands exposing (Lands, firstLandOfType, landsToList, selectedLands)
 import List.Extra exposing (greedyGroupsOf)
 import Modal exposing (createModal)
 import Model exposing (Model)
+import Msg exposing (Msg(..))
 
 
 view : Model -> Html Msg

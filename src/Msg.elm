@@ -1,4 +1,4 @@
-module LandMsg exposing (Msg(..))
+module Msg exposing (Msg(..))
 
 import Land exposing (Land)
 

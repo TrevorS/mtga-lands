@@ -2,7 +2,7 @@ module Modal exposing (createModal)
 
 import Html exposing (..)
 import Html.Attributes exposing (..)
-import LandMsg exposing (Msg(..))
+import Msg exposing (Msg(..))
 
 
 createModal : String -> Bool -> Html Msg -> Html Msg
