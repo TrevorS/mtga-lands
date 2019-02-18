@@ -45,7 +45,7 @@ viewHeaderMana =
             , ( "white", "Plains" )
             ]
     in
-    div [ class "navbar-item" ]
+    div [ class "navbar-item manas" ]
         (List.map (\( c, lt ) -> viewManaLink c lt) colors)
 
 
