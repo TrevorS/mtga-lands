@@ -224,15 +224,21 @@ viewDeckString active lands =
             "control"
 
         textareaClass =
-            "textarea is-info is-family-code"
+            "textarea is-primary is-family-code deckstring"
 
         modalTitle =
             "MTGA DeckString"
 
+        numberRows =
+            20
+
         deckStringTextArea =
             div [ class fieldClass ]
                 [ div [ class controlClass ]
-                    [ textarea [ class textareaClass ] deckStringAsText ]
+                    [ textarea
+                        [ class textareaClass, rows numberRows ]
+                        deckStringAsText
+                    ]
                 ]
     in
     createModal modalTitle active (div [] [ deckStringTextArea ])

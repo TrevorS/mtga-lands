@@ -37,3 +37,7 @@ button.is-small.counter-button {
   padding-right: 10px;
   padding-bottom: 5px;
 }
+
+.deckstring {
+  border-radius: 0px;
+}
