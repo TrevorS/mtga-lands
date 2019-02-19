@@ -16,6 +16,14 @@
   padding-left: 10px;
 }
 
+.github {
+  padding-top: 20px;
+}
+
+.github a {
+  border-radius: 20px;
+}
+
 .clear-button {
   padding-top: 20px;
 }

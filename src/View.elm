@@ -32,6 +32,7 @@ viewHeader landsSelected =
             [ div [ class "navbar-end" ]
                 [ viewHeaderClear landsSelected
                 , viewHeaderExport landsSelected
+                , viewHeaderGitHub
                 ]
             ]
         ]
@@ -67,6 +68,28 @@ viewHeaderMana =
             "navbar-item manas"
     in
     div [ class navbarItemClass ] (List.map (\( c, lt ) -> viewManaLink c lt) colors)
+
+
+viewHeaderGitHub : Html Msg
+viewHeaderGitHub =
+    let
+        navbarItemClass =
+            "navbar-item github"
+
+        buttonClass =
+            "button is-black"
+
+        githubHref =
+            "https://github.com/TrevorS/mtga-lands"
+
+        iconClass =
+            "fab fa-github"
+
+        linkTarget =
+            "_blank"
+    in
+    div [ class navbarItemClass ]
+        [ a [ class buttonClass, href githubHref, target linkTarget ] [ i [ class iconClass ] [] ] ]
 
 
 viewHeaderClear : Bool -> Html Msg

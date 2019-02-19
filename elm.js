@@ -5876,6 +5876,49 @@ var author$project$View$viewHeaderExport = function (enableExport) {
 					]))
 			]));
 };
+var elm$html$Html$a = _VirtualDom_node('a');
+var elm$html$Html$i = _VirtualDom_node('i');
+var elm$html$Html$Attributes$href = function (url) {
+	return A2(
+		elm$html$Html$Attributes$stringProperty,
+		'href',
+		_VirtualDom_noJavaScriptUri(url));
+};
+var elm$html$Html$Attributes$target = elm$html$Html$Attributes$stringProperty('target');
+var author$project$View$viewHeaderGitHub = function () {
+	var navbarItemClass = 'navbar-item github';
+	var linkTarget = '_blank';
+	var iconClass = 'fab fa-github';
+	var githubHref = 'https://github.com/TrevorS/mtga-lands';
+	var buttonClass = 'button is-black';
+	return A2(
+		elm$html$Html$div,
+		_List_fromArray(
+			[
+				elm$html$Html$Attributes$class(navbarItemClass)
+			]),
+		_List_fromArray(
+			[
+				A2(
+				elm$html$Html$a,
+				_List_fromArray(
+					[
+						elm$html$Html$Attributes$class(buttonClass),
+						elm$html$Html$Attributes$href(githubHref),
+						elm$html$Html$Attributes$target(linkTarget)
+					]),
+				_List_fromArray(
+					[
+						A2(
+						elm$html$Html$i,
+						_List_fromArray(
+							[
+								elm$html$Html$Attributes$class(iconClass)
+							]),
+						_List_Nil)
+					]))
+			]));
+}();
 var author$project$Land$landToHrefId = function (land) {
 	return land.K + ('-' + (land.G + ('-' + elm$core$String$fromInt(land.F))));
 };
@@ -5914,14 +5957,7 @@ var author$project$Lands$firstLandOfType = function (landType) {
 		return A5(author$project$Land$Land, 0, '', '', 0, 999);
 	}
 };
-var elm$html$Html$a = _VirtualDom_node('a');
 var elm$html$Html$img = _VirtualDom_node('img');
-var elm$html$Html$Attributes$href = function (url) {
-	return A2(
-		elm$html$Html$Attributes$stringProperty,
-		'href',
-		_VirtualDom_noJavaScriptUri(url));
-};
 var elm$html$Html$Attributes$src = function (url) {
 	return A2(
 		elm$html$Html$Attributes$stringProperty,
@@ -6038,7 +6074,8 @@ var author$project$View$viewHeader = function (landsSelected) {
 						_List_fromArray(
 							[
 								author$project$View$viewHeaderClear(landsSelected),
-								author$project$View$viewHeaderExport(landsSelected)
+								author$project$View$viewHeaderExport(landsSelected),
+								author$project$View$viewHeaderGitHub
 							]))
 					]))
 			]));
@@ -6052,7 +6089,6 @@ var author$project$Msg$Decrement = function (a) {
 var author$project$Msg$Increment = function (a) {
 	return {$: 0, a: a};
 };
-var elm$html$Html$i = _VirtualDom_node('i');
 var author$project$View$viewLandButton = function (msg) {
 	var plusClass = 'fas fa-plus-circle';
 	var minusClass = 'fas fa-minus-circle';
