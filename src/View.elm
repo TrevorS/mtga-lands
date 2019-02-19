@@ -247,6 +247,9 @@ viewDeckString active lands =
         controlClass =
             "control"
 
+        textAreaId =
+            "#deck-string"
+
         textareaClass =
             "textarea is-primary is-family-code deckstring"
 
@@ -260,7 +263,11 @@ viewDeckString active lands =
             div [ class fieldClass ]
                 [ div [ class controlClass ]
                     [ textarea
-                        [ class textareaClass, rows numberRows, readonly True ]
+                        [ id textAreaId
+                        , class textareaClass
+                        , rows numberRows
+                        , readonly True
+                        ]
                         deckStringAsText
                     ]
                 ]

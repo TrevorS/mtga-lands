@@ -44,6 +44,12 @@ createModal title active html =
         buttonCopyClass =
             "button is-success"
 
+        buttonCopyAttribute =
+            "data-clipboard-copy"
+
+        buttonCopyTarget =
+            "#deck-string"
+
         buttonCopyText =
             "Copy To Clipboard"
 
@@ -58,7 +64,13 @@ createModal title active html =
 
         modalFooter =
             footer [ class modalCardFoot ]
-                [ button [ class buttonCopyClass ] [ text buttonCopyText ] ]
+                [ button
+                    [ class buttonCopyClass
+                    , attribute buttonCopyAttribute buttonCopyTarget
+                    , onClick HideModal
+                    ]
+                    [ text buttonCopyText ]
+                ]
     in
     div [ class modalClass ]
         [ div [ class modalBackgroundClass ] []
