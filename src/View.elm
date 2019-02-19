@@ -4,7 +4,7 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Land exposing (Land, landToHrefId, landToImgUrl, landToString)
-import Lands exposing (Lands, firstLandOfType, landsToList, selectedLands)
+import Lands exposing (Lands, firstLandOfType, hasLandsSelected, landsToList, selectedLands)
 import List.Extra exposing (greedyGroupsOf)
 import Modal exposing (createModal)
 import Model exposing (Model)
@@ -13,20 +13,26 @@ import Msg exposing (Msg(..))
 
 view : Model -> Html Msg
 view model =
+    let
+        landsSelected =
+            hasLandsSelected model.lands
+    in
     div [ class "container" ]
-        [ viewHeader
+        [ viewHeader landsSelected
         , viewLands model.lands
         , viewDeckString model.modalOpen model.lands
         ]
 
 
-viewHeader : Html Msg
-viewHeader =
+viewHeader : Bool -> Html Msg
+viewHeader landsSelected =
     nav [ class "navbar header" ]
         [ div [ class "navbar-brand" ] [ viewHeaderTitle, viewHeaderMana ]
         , div [ class "navbar-menu" ]
             [ div [ class "navbar-end" ]
-                [ viewHeaderClear, viewHeaderExport ]
+                [ viewHeaderClear landsSelected
+                , viewHeaderExport landsSelected
+                ]
             ]
         ]
 
@@ -63,8 +69,8 @@ viewHeaderMana =
     div [ class navbarItemClass ] (List.map (\( c, lt ) -> viewManaLink c lt) colors)
 
 
-viewHeaderClear : Html Msg
-viewHeaderClear =
+viewHeaderClear : Bool -> Html Msg
+viewHeaderClear enableClear =
     let
         navbarItemClass =
             "navbar-item clear-button"
@@ -77,13 +83,22 @@ viewHeaderClear =
 
         buttonMsg =
             Clear
+
+        buttonDisabled =
+            not enableClear
     in
     div [ class navbarItemClass ]
-        [ button [ class buttonClass, onClick buttonMsg ] [ text buttonText ] ]
+        [ button
+            [ class buttonClass
+            , onClick buttonMsg
+            , disabled buttonDisabled
+            ]
+            [ text buttonText ]
+        ]
 
 
-viewHeaderExport : Html Msg
-viewHeaderExport =
+viewHeaderExport : Bool -> Html Msg
+viewHeaderExport enableExport =
     let
         navbarItemClass =
             "navbar-item export-button"
@@ -96,9 +111,18 @@ viewHeaderExport =
 
         buttonMsg =
             ShowModal
+
+        buttonDisabled =
+            not enableExport
     in
     div [ class navbarItemClass ]
-        [ button [ class buttonClass, onClick buttonMsg ] [ text buttonText ] ]
+        [ button
+            [ class buttonClass
+            , onClick buttonMsg
+            , disabled buttonDisabled
+            ]
+            [ text buttonText ]
+        ]
 
 
 viewManaLink : String -> String -> Html Msg

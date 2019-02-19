@@ -1,4 +1,4 @@
-module Lands exposing (Lands, createLandsDict, firstLandOfType, landsToList, selectedLands)
+module Lands exposing (Lands, createLandsDict, firstLandOfType, hasLandsSelected, landsToList, selectedLands)
 
 import Dict exposing (Dict)
 import Land exposing (Land)
@@ -113,3 +113,8 @@ landsToList lands =
 selectedLands : Lands -> List Land
 selectedLands lands =
     List.filter (\l -> l.count > 0) (landsToList lands)
+
+
+hasLandsSelected : Lands -> Bool
+hasLandsSelected lands =
+    List.length (selectedLands lands) > 0
