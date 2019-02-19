@@ -229,7 +229,8 @@ viewLandButton msg =
                     ( minusClass, land.count == 0 )
 
                 _ ->
-                    Debug.todo "This should not happen."
+                    -- TODO: Hack.
+                    ( "", False )
     in
     div [ class divClass ]
         [ button [ class buttonClass, onClick msg, disabled buttonDisabled ] [ i [ class iconClass ] [] ] ]

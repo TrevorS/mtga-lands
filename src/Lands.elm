@@ -96,7 +96,8 @@ firstLandOfType landType =
             land
 
         _ ->
-            Debug.todo "This shouldn't happen."
+            -- TODO: Hack.
+            Land 0 "" "" 0 999
 
 
 createLandsDict : Lands
