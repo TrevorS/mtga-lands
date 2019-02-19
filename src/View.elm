@@ -236,7 +236,7 @@ viewDeckString active lands =
             div [ class fieldClass ]
                 [ div [ class controlClass ]
                     [ textarea
-                        [ class textareaClass, rows numberRows ]
+                        [ class textareaClass, rows numberRows, readonly True ]
                         deckStringAsText
                     ]
                 ]
