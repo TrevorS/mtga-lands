@@ -173,7 +173,7 @@ viewLands : Lands -> Html Msg
 viewLands lands =
     let
         landRows =
-            greedyGroupsOf 5 (landsToList lands)
+            greedyGroupsOf 6 (landsToList lands)
     in
     div []
         (List.map (\landRow -> viewLandRow landRow) landRows)
