@@ -10,38 +10,53 @@ CARDS = [
   {id: 195, set: "RIX"},
   {id: 196, set: "RIX"},
   {id: 250, set: "DAR"},
+  {id: 250, set: "WAR"},
   {id: 251, set: "DAR"},
+  {id: 251, set: "WAR"},
   {id: 252, set: "DAR"},
+  {id: 252, set: "WAR"},
   {id: 253, set: "DAR"},
+  {id: 253, set: "WAR"},
   {id: 254, set: "DAR"},
+  {id: 254, set: "WAR"},
   {id: 255, set: "DAR"},
+  {id: 255, set: "WAR"},
   {id: 256, set: "DAR"},
+  {id: 256, set: "WAR"},
   {id: 257, set: "DAR"},
+  {id: 257, set: "WAR"},
   {id: 258, set: "DAR"},
+  {id: 258, set: "WAR"},
   {id: 259, set: "DAR"},
+  {id: 259, set: "WAR"},
   {id: 260, set: "DAR"},
   {id: 260, set: "GRN"},
   {id: 260, set: "RNA"},
+  {id: 260, set: "WAR"},
   {id: 260, set: "XLN"},
   {id: 261, set: "DAR"},
   {id: 261, set: "GRN"},
   {id: 261, set: "M19"},
   {id: 261, set: "RNA"},
+  {id: 261, set: "WAR"},
   {id: 261, set: "XLN"},
   {id: 262, set: "DAR"},
   {id: 262, set: "GRN"},
   {id: 262, set: "M19"},
   {id: 262, set: "RNA"},
+  {id: 262, set: "WAR"},
   {id: 262, set: "XLN"},
   {id: 263, set: "DAR"},
   {id: 263, set: "GRN"},
   {id: 263, set: "M19"},
   {id: 263, set: "RNA"},
+  {id: 263, set: "WAR"},
   {id: 263, set: "XLN"},
   {id: 264, set: "DAR"},
   {id: 264, set: "GRN"},
   {id: 264, set: "M19"},
   {id: 264, set: "RNA"},
+  {id: 264, set: "WAR"},
   {id: 264, set: "XLN"},
   {id: 265, set: "DAR"},
   {id: 265, set: "M19"},
@@ -78,7 +93,6 @@ CARDS = [
   {id: 278, set: "XLN"},
   {id: 279, set: "M19"},
   {id: 279, set: "XLN"},
-  {id: 280, set: "M19"},
 ].freeze
 
 def card_url(card)
@@ -101,6 +115,11 @@ end
 CARDS.each do |card|
   url = card_url(card)
   path = card_path(card)
+
+  if File.exists?(path)
+    puts "Already downloaded: #{url}"
+    next
+  end
 
   puts "Downloading: #{url} to #{path}"
 
